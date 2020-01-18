@@ -1,6 +1,6 @@
 package com.vassilis.library.service;
 
-import com.vassilis.library.aspect.Logger;
+import com.vassilis.library.aspect.TimeExecution;
 import com.vassilis.library.exception.WebAppException;
 import com.vassilis.library.exception.WebAppExceptionFactory;
 import com.vassilis.library.model.Book;
@@ -21,7 +21,7 @@ public class BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper = Mappers.getMapper(BookMapper.class);
 
-    @Logger
+    @TimeExecution
     public BookRep createBook(String libraryId, BookRep bookRep) {
         validatePayload(bookRep);
 
@@ -30,7 +30,7 @@ public class BookService {
         return bookMapper.toBookRep(bookSaved);
     }
 
-    @Logger
+    @TimeExecution
     public BookRep getBookById(String bookId) {
         Book book = Optional.ofNullable(bookRepository.getBookById(bookId))
                 .orElseThrow(() ->
@@ -39,7 +39,7 @@ public class BookService {
         return bookMapper.toBookRep(book);
     }
 
-    @Logger
+    @TimeExecution
     public List<BookRep> getBooks() {
         List<Book> books = bookRepository.getBooks();
 

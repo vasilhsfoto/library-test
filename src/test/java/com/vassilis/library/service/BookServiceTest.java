@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vassilis.library.repository.BookRepository;
 import com.vassilis.library.representation.BookRep;
 import com.vassilis.library.representation.BookRep.AuthorRep;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
