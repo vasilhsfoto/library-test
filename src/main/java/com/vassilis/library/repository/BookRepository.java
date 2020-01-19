@@ -15,11 +15,8 @@ public class BookRepository {
     private final Map<String, Book> idToBook = new ConcurrentHashMap<>();
 
     public Book addBook(Book book) {
-        throw new RuntimeException("DB is offline");
-/*
         idToBook.put(book.getId(), book);
         return book;
-*/
     }
 
     public Book getBookById(String bookId) {
