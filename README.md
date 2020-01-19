@@ -25,6 +25,6 @@ curl -i -X GET \
  
  3. GET all Books
  
- url -i -X GET \
+ curl -i -X GET \
   'http://localhost:8080/api/libraries/1/books/'
   
