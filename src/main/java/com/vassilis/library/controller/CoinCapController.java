@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.vassilis.library.representation.CurrencyRateRep;
 import com.vassilis.library.service.CoinCapService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
