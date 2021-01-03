@@ -13,11 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class CoinCapController {
-
     private final CoinCapService coinCapService;
 
     @GetMapping("/api/rates/{symbol}")
-    private CurrencyRateRep getUsdRate(@PathVariable String symbol) {
+    public CurrencyRateRep getUsdRate(@PathVariable String symbol) {
         return coinCapService.getUsdRate(symbol);
     }
 }

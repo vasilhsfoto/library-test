@@ -1,4 +1,4 @@
-package com.vassilis.library.controller;
+package com.vassilis.library.api;
 
 import java.time.Instant;
 

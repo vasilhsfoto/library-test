@@ -29,7 +29,8 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
         String requestURI = request.getRequestURI();
         log.error(MESSAGE,
                 exception.getClass().getSimpleName(),
-                requestURI);
+                requestURI,
+                exception);
         ErrorResponse response = new ErrorResponse("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         return response;
     }
