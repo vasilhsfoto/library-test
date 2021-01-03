@@ -1,8 +1,5 @@
 package com.vassilis.library.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vassilis.library.JunitTags;
-import com.vassilis.library.representation.BookRep;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
@@ -13,6 +10,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vassilis.library.JunitTags;
+import com.vassilis.library.representation.BookRep;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -71,14 +72,14 @@ public class BookApiTest {
         String bookId = newBook.getId();
 
         mockMvc.perform(get("/api/libraries/1/books/{bookId}", bookId))
-               .andExpect(content().json("{\n" +
-                       "  \"name\":\"book-name\",\n" +
-                       "  \"publicationDate\":\"1998-10-12\",\n" +
-                       "  \"numOfPages\": 150,\n" +
-                       "  \"authors\":[\n" +
-                       "    {\"name\":\"Alex\"},\n" +
-                       "    {\"name\":\"Alex\"}\n" +
-                       "   ]\n" +
-                       "}"));
+                .andExpect(content().json("{\n" +
+                        "  \"name\":\"book-name\",\n" +
+                        "  \"publicationDate\":\"1998-10-12\",\n" +
+                        "  \"numOfPages\": 150,\n" +
+                        "  \"authors\":[\n" +
+                        "    {\"name\":\"Alex\"},\n" +
+                        "    {\"name\":\"Alex\"}\n" +
+                        "   ]\n" +
+                        "}"));
     }
 }
