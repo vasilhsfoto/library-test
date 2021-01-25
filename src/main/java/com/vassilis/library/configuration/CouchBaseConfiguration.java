@@ -1,38 +1,19 @@
 package com.vassilis.library.configuration;
 
-import com.couchbase.client.java.Bucket;
-import com.couchbase.client.java.cluster.ClusterInfo;
-import com.couchbase.client.java.env.CouchbaseEnvironment;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vassilis.library.configuration.properties.CouchbaseConfigProperties;
-import com.vassilis.library.repository.converter.LocalDateConverters.LocalDateToStringConverter;
-import com.vassilis.library.repository.converter.LocalDateConverters.StringToLocalDateConverter;
-import com.vassilis.library.repository.converter.LocalTimeConverters.LocalTimeToStringConverter;
-import com.vassilis.library.repository.converter.LocalTimeConverters.StringToLocalTimeConverter;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
+
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.data.convert.CustomConversions;
-import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
-import org.springframework.data.couchbase.config.BeanNames;
-import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
-import org.springframework.data.couchbase.core.convert.translation.JacksonTranslationService;
-import org.springframework.data.couchbase.core.convert.translation.TranslationService;
-import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
-
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.List;
 
 @Slf4j
 @EqualsAndHashCode(callSuper = false)
 @Configuration
 @EnableCouchbaseAuditing
 @RequiredArgsConstructor
-public class CouchBaseConfiguration extends AbstractCouchbaseConfiguration {
-
+public class CouchBaseConfiguration { // extends AbstractCouchbaseConfiguration {
+/*
     private final CouchbaseConfigProperties properties;
 
     private final ObjectMapper objectMapper;
@@ -104,5 +85,5 @@ public class CouchBaseConfiguration extends AbstractCouchbaseConfiguration {
         jacksonTranslationService.setObjectMapper(objectMapper);
         jacksonTranslationService.afterPropertiesSet();
         return jacksonTranslationService;
-    }
+    }*/
 }
