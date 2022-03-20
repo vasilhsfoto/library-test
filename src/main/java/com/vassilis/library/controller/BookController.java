@@ -1,6 +1,6 @@
 package com.vassilis.library.controller;
 
-import com.vassilis.library.representation.BookRep;
+import com.vassilis.library.representation.BookDto;
 import com.vassilis.library.service.BookService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,12 +23,12 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping("/api/libraries/{libraryId}/books")
-    public ResponseEntity<BookRep> createBook(
+    public ResponseEntity<BookDto> createBook(
             @PathVariable String libraryId,
-            @RequestBody @Valid BookRep bookRep) {
-        log.info("Create method called with payload {} ", bookRep);
+            @RequestBody @Valid BookDto bookDto) {
+        log.info("Create method called with payload {} ", bookDto);
 
-        BookRep result = bookService.createBook(libraryId, bookRep);
+        BookDto result = bookService.createBook(libraryId, bookDto);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -36,12 +36,12 @@ public class BookController {
     }
 
     @GetMapping("/api/libraries/{libraryId}/books/{bookId}")
-    public ResponseEntity<BookRep> getBookById(
+    public ResponseEntity<BookDto> getBookById(
             @PathVariable String libraryId,
             @PathVariable String bookId) {
 
         log.info("Get method called with id {} ", bookId);
-        BookRep result = bookService.getBookById(bookId);
+        BookDto result = bookService.getBookById(bookId);
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -49,11 +49,11 @@ public class BookController {
     }
 
     @GetMapping("/api/libraries/{libraryId}/books")
-    public ResponseEntity<List<BookRep>> getBooks() {
-        List<BookRep> bookReps = bookService.getBooks();
+    public ResponseEntity<List<BookDto>> getBooks() {
+        List<BookDto> bookDtos = bookService.getBooks();
 
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(bookReps);
+                .body(bookDtos);
     }
 }

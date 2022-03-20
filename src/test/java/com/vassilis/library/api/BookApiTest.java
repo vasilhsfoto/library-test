@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vassilis.library.JunitTags;
-import com.vassilis.library.representation.BookRep;
+import com.vassilis.library.representation.BookDto;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -68,7 +68,7 @@ public class BookApiTest {
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andReturn();
 
-        BookRep newBook = mapper.readValue(mvcResult.getResponse().getContentAsString(), BookRep.class);
+        BookDto newBook = mapper.readValue(mvcResult.getResponse().getContentAsString(), BookDto.class);
         String bookId = newBook.getId();
 
         mockMvc.perform(get("/api/libraries/1/books/{bookId}", bookId))

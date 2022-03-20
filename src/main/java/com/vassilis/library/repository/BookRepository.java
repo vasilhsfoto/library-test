@@ -1,30 +1,17 @@
 package com.vassilis.library.repository;
 
-import com.vassilis.library.model.Book;
-import org.springframework.stereotype.Repository;
-
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
-@Repository
-public class BookRepository {
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.couchbase.repository.CouchbaseRepository;
+import org.springframework.data.couchbase.repository.Query;
 
-    private final Map<String, Book> idToBook = new ConcurrentHashMap<>();
+import com.vassilis.library.configuration.Profiles;
+import com.vassilis.library.model.Book;
 
-    public Book addBook(Book book) {
-        idToBook.put(book.getId(), book);
-        return book;
-    }
+@Profile(Profiles.CB_PROFILE)
+public interface BookRepository extends CouchbaseRepository<Book, String> {
 
-    public Book getBookById(String bookId) {
-        return idToBook.get(bookId);
-    }
-
-    public List<Book> getBooks() {
-        Collection<Book> books = idToBook.values();
-        return List.of(books.toArray(new Book[]{}));
-    }
+    @Query("#{#n1ql.selectEntity} WHERE _meta.type = 'BOOK'")
+    List<Book> findAll();
 }
