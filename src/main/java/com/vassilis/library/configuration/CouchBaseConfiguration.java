@@ -1,20 +1,34 @@
 package com.vassilis.library.configuration;
 
-import org.springframework.context.annotation.Configuration;
+import java.util.List;
 
-import lombok.EqualsAndHashCode;
+import javax.annotation.PostConstruct;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
+import org.springframework.data.convert.CustomConversions;
+import org.springframework.data.couchbase.config.AbstractCouchbaseConfiguration;
+import org.springframework.data.couchbase.core.convert.CouchbaseCustomConversions;
+import org.springframework.data.couchbase.core.convert.translation.JacksonTranslationService;
+import org.springframework.data.couchbase.core.convert.translation.TranslationService;
+import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
+import org.springframework.data.couchbase.repository.config.EnableCouchbaseRepositories;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vassilis.library.configuration.properties.CouchbaseConfigProperties;
+import com.vassilis.library.repository.converter.LocalDateConverters;
+import com.vassilis.library.repository.converter.LocalTimeConverters;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@EqualsAndHashCode(callSuper = false)
 @Configuration
-//@EnableCouchbaseAuditing
+@EnableCouchbaseAuditing
+@EnableCouchbaseRepositories
 @RequiredArgsConstructor
-public class CouchBaseConfiguration { // extends AbstractCouchbaseConfiguration {
-/*
+@Profile(Profiles.CB_PROFILE)
+public class CouchBaseConfiguration extends AbstractCouchbaseConfiguration {
     private final CouchbaseConfigProperties properties;
-
     private final ObjectMapper objectMapper;
 
     @PostConstruct
@@ -24,43 +38,23 @@ public class CouchBaseConfiguration { // extends AbstractCouchbaseConfiguration 
     }
 
     @Override
-    protected List<String> getBootstrapHosts() {
-        return Arrays.asList(properties.getHosts().split(","));
-    }
-
-    @Override
-    protected String getBucketName() {
+    public String getBucketName() {
         return properties.getBucket();
     }
 
     @Override
-    protected String getBucketPassword() {
-        return null;
+    public String getPassword() {
+        return properties.getPassword();
     }
 
     @Override
-    protected String getUsername() {
+    public String getUserName() {
         return properties.getUsername();
     }
 
     @Override
-    @Bean(destroyMethod = "shutdown", name = BeanNames.COUCHBASE_ENV)
-    public CouchbaseEnvironment couchbaseEnvironment() {
-        System.setProperty("com.couchbase.allowHostnamesAsSeedNodes", "true");
-        System.setProperty("com.couchbase.forceDnsLookupOnReconnect", "true");
-        return super.couchbaseEnvironment();
-    }
-
-    @Override
-    @Bean(name = BeanNames.COUCHBASE_CLUSTER_INFO)
-    public ClusterInfo couchbaseClusterInfo() throws Exception {
-        return this.couchbaseCluster().authenticate(properties.getUsername(),
-                properties.getPassword()).clusterManager().info();
-    }
-
-    @Override
-    public Bucket couchbaseClient() throws Exception {
-        return couchbaseCluster().openBucket(getBucketName());
+    public String getConnectionString() {
+        return properties.getHost();
     }
 
     @Override
@@ -70,19 +64,20 @@ public class CouchBaseConfiguration { // extends AbstractCouchbaseConfiguration 
 
     @Override
     public CustomConversions customConversions() {
-        return new CouchbaseCustomConversions(Arrays.asList(
-                LocalDateToStringConverter.INSTANCE,
-                StringToLocalDateConverter.INSTANCE,
-                LocalTimeToStringConverter.INSTANCE,
-                StringToLocalTimeConverter.INSTANCE
+        return new CouchbaseCustomConversions(List.of(
+                LocalDateConverters.LocalDateToStringConverter.INSTANCE,
+                LocalDateConverters.StringToLocalDateConverter.INSTANCE,
+                LocalTimeConverters.LocalTimeToStringConverter.INSTANCE,
+                LocalTimeConverters.StringToLocalTimeConverter.INSTANCE
         ));
     }
 
     @Override
-    public TranslationService translationService() {
+    public TranslationService couchbaseTranslationService() {
         final JacksonTranslationService jacksonTranslationService = new JacksonTranslationService();
         jacksonTranslationService.setObjectMapper(objectMapper);
         jacksonTranslationService.afterPropertiesSet();
         return jacksonTranslationService;
-    }*/
+    }
+
 }

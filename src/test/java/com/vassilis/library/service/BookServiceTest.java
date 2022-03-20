@@ -3,8 +3,8 @@ package com.vassilis.library.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vassilis.library.repository.BookRepository;
-import com.vassilis.library.representation.BookRep;
-import com.vassilis.library.representation.BookRep.AuthorRep;
+import com.vassilis.library.representation.BookDto;
+import com.vassilis.library.representation.BookDto.AuthorDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -35,18 +35,18 @@ class BookServiceTest {
 
     @Test
     void createBook() throws JsonProcessingException {
-        BookRep bookRep = new BookRep();
-        bookRep.setName("book-name");
-        bookRep.setNumOfPages(10L);
-        bookRep.setPublicationDate(LocalDate.of(1998, 10, 12));
+        BookDto bookDto = new BookDto();
+        bookDto.setName("book-name");
+        bookDto.setNumOfPages(10L);
+        bookDto.setPublicationDate(LocalDate.of(1998, 10, 12));
 
-        AuthorRep authorRep1 = new AuthorRep();
-        authorRep1.setName("Alex");
-        AuthorRep authorRep2 = new AuthorRep();
-        authorRep2.setName("Alex");
+        BookDto.AuthorDto authorDto1 = new BookDto.AuthorDto();
+        authorDto1.setName("Alex");
+        AuthorDto authorDto2 = new AuthorDto();
+        authorDto2.setName("Alex");
 
-        bookRep.setAuthors(List.of(authorRep1, authorRep2));
+        bookDto.setAuthors(List.of(authorDto1, authorDto2));
 
-        System.out.println(mapper.writeValueAsString(bookRep));
+        System.out.println(mapper.writeValueAsString(bookDto));
     }
 }

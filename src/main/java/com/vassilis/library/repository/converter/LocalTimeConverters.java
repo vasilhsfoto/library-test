@@ -1,8 +1,14 @@
 package com.vassilis.library.repository.converter;
 
-public class LocalTimeConverters {
-}/*{
+import java.time.LocalTime;
 
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.convert.ReadingConverter;
+import org.springframework.data.convert.WritingConverter;
+
+import com.google.common.base.Strings;
+
+public class LocalTimeConverters {
     @WritingConverter
     public enum LocalTimeToStringConverter implements Converter<LocalTime, String> {
         INSTANCE;
@@ -22,4 +28,4 @@ public class LocalTimeConverters {
             return Strings.isNullOrEmpty(source) ? null : LocalTime.parse(source);
         }
     }
-}*/
+}

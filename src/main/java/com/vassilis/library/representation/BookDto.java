@@ -10,12 +10,14 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Data
-public class BookRep {
+public class BookDto {
 
     @Data
-    public static class AuthorRep {
+    public static class AuthorDto {
         @NotBlank
         private String name;
+        @NotNull
+        private LocalDate birthDate;
     }
 
     private String id;
@@ -28,7 +30,10 @@ public class BookRep {
 
     private Long numOfPages;
 
+    @NotNull
+    private Double price;
+
     @NotEmpty
     @Valid
-    private List<AuthorRep> authors;
+    private List<AuthorDto> authors;
 }
