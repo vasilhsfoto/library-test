@@ -1,13 +1,7 @@
 package com.vassilis.library.repository.converter;
 
-import com.google.common.base.Strings;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.data.convert.ReadingConverter;
-import org.springframework.data.convert.WritingConverter;
-
-import java.time.LocalDate;
-
 public class LocalDateConverters {
+/*
 
     @WritingConverter
     public enum LocalDateToStringConverter implements Converter<LocalDate, String> {
@@ -28,4 +22,5 @@ public class LocalDateConverters {
             return Strings.isNullOrEmpty(source) ? null : LocalDate.parse(source);
         }
     }
+*/
 }

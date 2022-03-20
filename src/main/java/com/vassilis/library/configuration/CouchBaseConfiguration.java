@@ -1,7 +1,6 @@
 package com.vassilis.library.configuration;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.couchbase.repository.auditing.EnableCouchbaseAuditing;
 
 import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EqualsAndHashCode(callSuper = false)
 @Configuration
-@EnableCouchbaseAuditing
+//@EnableCouchbaseAuditing
 @RequiredArgsConstructor
 public class CouchBaseConfiguration { // extends AbstractCouchbaseConfiguration {
 /*
