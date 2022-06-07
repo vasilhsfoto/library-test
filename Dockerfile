@@ -1,4 +1,4 @@
-FROM openjdk:11.0.5-jre
+FROM openjdk:17-alpine
 VOLUME /tmp
 ARG JAR_FILE=target/*.jar
 COPY ${JAR_FILE} app.jar
