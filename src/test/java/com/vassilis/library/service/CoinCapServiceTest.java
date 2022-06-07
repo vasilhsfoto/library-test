@@ -14,12 +14,14 @@ import org.springframework.test.web.client.response.MockRestResponseCreators;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.vassilis.library.configuration.RestTemplateConfiguration;
+import com.vassilis.library.configuration.properties.CoinCapProperties;
 import com.vassilis.library.representation.CurrencyRateRep;
 
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 
-@RestClientTest(components = CoinCapService.class)
+@RestClientTest(components = {CoinCapService.class, RestTemplateConfiguration.class, CoinCapProperties.class})
 public class CoinCapServiceTest {
 
     @Autowired

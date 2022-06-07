@@ -44,27 +44,25 @@ public class BookApiTest {
 
     @Test
     void createBook_addNewBook_whenBookIsProvided() throws Exception {
+        var body = """
+                {
+                   "name":"book-name",
+                   "publicationDate":"1998-10-12",
+                   "numOfPages": 150,
+                   "authors":[
+                        {
+                            "name":"Alex",
+                            "birthDate":"1908-12-10"
+                        }
+                    ],
+                    "price": 99.9
+                }
+                """;
         MvcResult mvcResult = mockMvc.perform(post("/api/libraries/1/books")
-                .content("{\n" +
-                        "  \"name\":\"book-name\",\n" +
-                        "  \"publicationDate\":\"1998-10-12\",\n" +
-                        "  \"numOfPages\": 150,\n" +
-                        "  \"authors\":[\n" +
-                        "    {\"name\":\"Alex\"},\n" +
-                        "    {\"name\":\"Alex\"}\n" +
-                        "   ]\n" +
-                        "}")
-                .contentType(MediaType.APPLICATION_JSON))
+                        .content(body)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(content().json("{\n" +
-                        "  \"name\":\"book-name\",\n" +
-                        "  \"publicationDate\":\"1998-10-12\",\n" +
-                        "  \"numOfPages\": 150,\n" +
-                        "  \"authors\":[\n" +
-                        "    {\"name\":\"Alex\"},\n" +
-                        "    {\"name\":\"Alex\"}\n" +
-                        "   ]\n" +
-                        "}"))
+                .andExpect(content().json(body))
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andReturn();
 
@@ -72,14 +70,6 @@ public class BookApiTest {
         String bookId = newBook.getId();
 
         mockMvc.perform(get("/api/libraries/1/books/{bookId}", bookId))
-                .andExpect(content().json("{\n" +
-                        "  \"name\":\"book-name\",\n" +
-                        "  \"publicationDate\":\"1998-10-12\",\n" +
-                        "  \"numOfPages\": 150,\n" +
-                        "  \"authors\":[\n" +
-                        "    {\"name\":\"Alex\"},\n" +
-                        "    {\"name\":\"Alex\"}\n" +
-                        "   ]\n" +
-                        "}"));
+                .andExpect(content().json(body));
     }
 }
