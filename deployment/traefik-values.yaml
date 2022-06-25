@@ -1,0 +1,23 @@
+additionalArguments:
+  - "--accesslog=true"
+  - "--accesslog.format=json"
+  - "--log.level=DEBUG"
+
+deployment:
+  replicas: 1
+
+service:
+  spec:
+    loadBalancerIP: 13.68.176.132
+  annotations:
+    "service.beta.kubernetes.io/azure-load-balancer-resource-group": "vassilis-aks-rg"
+    "service.beta.kubernetes.io/azure-dns-label-name": "libraryvf"
+
+ports:
+  traefik:
+    metrics:
+      expose: true
+
+api:
+  dashboard: true
+  insecure: true

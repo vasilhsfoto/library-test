@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "4"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"be","coffee":"esspresso"},"name":"my-nginx","namespace":"vassilis"},"spec":{"replicas":2,"selector":{"matchLabels":{"app":"my-nginx"}},"template":{"metadata":{"labels":{"app":"my-nginx"}},"spec":{"containers":[{"image":"vassilisacr.azurecr.io/nginx:1.21.6","livenessProbe":{"failureThreshold":1,"httpGet":{"path":"/index.html","port":80},"initialDelaySeconds":3,"periodSeconds":5},"name":"my-nginx","ports":[{"containerPort":80}],"readinessProbe":{"failureThreshold":1,"httpGet":{"path":"/index.html","port":80},"initialDelaySeconds":15,"periodSeconds":5},"resources":{"limits":{"cpu":"400m","memory":"128Mi"}}}],"imagePullSecrets":[{"name":"docker-key"}]}}}}
+  creationTimestamp: "2022-04-29T22:22:27Z"
+  generation: 12
+  labels:
+    app: be
+    coffee: esspresso
+  name: my-nginx
+  namespace: vassilis
+  resourceVersion: "372669"
+  uid: f65ab7fa-8508-436d-9593-6bb339592be7
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: my-nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-nginx
+    spec:
+      containers:
+        - image: vassilisacr.azurecr.io/nginx:1.21.6
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /index.html
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: my-nginx
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /index.html
+              port: 80
+              scheme: HTTP
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 400m
+              memory: 128Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      imagePullSecrets:
+        - name: docker-key
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+    - lastTransitionTime: "2022-04-29T22:22:27Z"
+      lastUpdateTime: "2022-04-29T23:05:48Z"
+      message: ReplicaSet "my-nginx-76dfbfdfdc" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    - lastTransitionTime: "2022-04-29T23:19:18Z"
+      lastUpdateTime: "2022-04-29T23:19:18Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+  observedGeneration: 12
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

@@ -1,0 +1,42 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: vassilis
+
+---
+apiVersion: v1
+data:
+  .dockerconfigjson: eyJhdXRocyI6eyJ2YXNzaWxpc2Fjci5henVyZWNyLmlvIjp7InVzZXJuYW1lIjoidmFzc2lsaXNhY3IiLCJwYXNzd29yZCI6Ilh1ajhPaHcxU1VHWTkrb1RTamtYY0RZcURVczV0Tzc4IiwiYXV0aCI6ImRtRnpjMmxzYVhOaFkzSTZXSFZxT0U5b2R6RlRWVWRaT1N0dlZGTnFhMWhqUkZseFJGVnpOWFJQTnpnPSJ9fX0=
+kind: Secret
+metadata:
+  name: docker-key
+  namespace: vassilis
+type: kubernetes.io/dockerconfigjson
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: my-nginx
+  namespace: vassilis
+spec:
+  containers:
+    - name: my-nginx
+      image: vassilisacr.azurecr.io/nginx:1.21.6
+      ports:
+        - containerPort: 80
+      readinessProbe:
+        httpGet:
+          path: /index.html
+          port: 80
+        initialDelaySeconds: 15
+        periodSeconds: 5
+        failureThreshold: 1
+      livenessProbe:
+        httpGet:
+          path: /index.html
+          port: 80
+        initialDelaySeconds: 3
+        periodSeconds: 5
+        failureThreshold: 1
+  imagePullSecrets:
+    - name: docker-key
