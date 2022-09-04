@@ -32,7 +32,7 @@ start() {
 
   # Run the server and send it to the background
   log "Starting couchbase ........."
-  docker run --name local_couchbase --rm -d -p 8091-8094:8091-8094 -p 11210:11210 couchbase/server:community-6.0.0 >/dev/null
+  docker run --name local_couchbase --rm -d -p 8091-8096:8091-8096 -p 11210-11211:11210-11211 couchbase/server:community-7.1.0-aarch64 >/dev/null
 
   # Wait until it's ready (or 60sec)
   THRESHOLD=30
