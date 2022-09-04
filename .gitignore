@@ -19,6 +19,9 @@ target/
 *.iml
 *.ipr
 
+### jenv ###
+.java-version
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
